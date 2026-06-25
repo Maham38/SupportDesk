@@ -13,7 +13,7 @@ const {
   ticketValidation,
   validate
 } = require("../middleware/validation");
-router.post("/tickets", ticketValidation, validate, createTicket);
+router.post("/tickets", ...ticketValidation, validate, createTicket);
 router.get("/tickets", getTickets);
 router.get("/tickets/:id", getTicketById);
 router.patch("/tickets/:id/status", updateStatus);
