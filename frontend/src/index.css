@@ -1,7 +1,3 @@
-body {
-  background-image: url("./assets/png3.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+body{
+  background-color: #dde7f0;
 }

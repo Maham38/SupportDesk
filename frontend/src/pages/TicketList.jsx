@@ -70,7 +70,7 @@ export default function TicketList() {
 
           <div className="col-12 col-md-3 d-flex justify-content-end gap-2">
             <button className="btn btn-outline-secondary" onClick={clearFilters}>Clear</button>
-            <a href="/create" className="btn btn-primary">New Ticket</a>
+            <a href="/create" className="btn btn-dark rounded-3 px-3 fw-medium ms-2">New Ticket</a>
           </div>
         </div>
       </div>
