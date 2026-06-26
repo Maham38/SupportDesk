@@ -44,7 +44,10 @@ export default function CreateTicket() {
         const formatted = {}
 
         backendErrors.forEach((e) => {
-          formatted[e.param] = e.msg
+          const field = e.path || e.param
+          if (field) {
+            formatted[field] = e.msg
+          }
         })
 
         setErrors(formatted)
@@ -69,7 +72,7 @@ export default function CreateTicket() {
         </div>
       )}
 
-      <form onSubmit={submit}>
+      <form onSubmit={submit} noValidate>
 
         {/* Name */}
         <div className="mb-3">
@@ -150,7 +153,7 @@ export default function CreateTicket() {
 
         {/* Submit */}
         <button
-          className="btn btn-primary w-100"
+          className="btn  btn-dark rounded-3 px-3 fw-medium ms-2 w-100"
           disabled={sending}
         >
           {sending ? 'Creating Ticket...' : 'Create Ticket'}

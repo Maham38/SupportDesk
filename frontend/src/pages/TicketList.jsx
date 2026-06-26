@@ -7,6 +7,7 @@ export default function TicketList() {
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("");
   const [status, setStatus] = useState("");
+  const [sortOrder, setSortOrder] = useState("newest");
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef();
 
@@ -20,6 +21,7 @@ export default function TicketList() {
       if (search) params.search = search;
       if (priority) params.priority = priority;
       if (status) params.status = status;
+      if (sortOrder) params.sortOrder = sortOrder;
 
       api
         .get("/tickets", { params })
@@ -29,12 +31,13 @@ export default function TicketList() {
     }, 250);
 
     return () => clearTimeout(debounceRef.current);
-  }, [search, priority, status]);
+  }, [search, priority, status, sortOrder]);
 
   const clearFilters = () => {
     setSearch("");
     setPriority("");
     setStatus("");
+    setSortOrder("newest");
   };
 
   return (
@@ -44,33 +47,36 @@ export default function TicketList() {
         <div className="text-muted">{tickets.length} results</div>
       </div>
 
-      <div className="card mb-3 p-3">
-        <div className="row g-2 align-items-center">
-          <div className="col-12 col-md-5">
-            <input className="form-control" placeholder="Search by name, email, or subject..." value={search} onChange={(e)=>setSearch(e.target.value)} />
-          </div>
+      <div className="card mb-3 p-2">
+        <div className="d-flex flex-column flex-lg-row gap-2 align-items-stretch align-items-lg-center">
+          <input
+            className="form-control "
+            placeholder="Search by name, email, or subject..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-          <div className="col-6 col-md-2">
-            <select className="form-select" value={priority} onChange={(e)=>setPriority(e.target.value)}>
-              <option value="">All priorities</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
+          <select className="form-select" value={priority} onChange={(e) => setPriority(e.target.value)} style={{ maxWidth: '180px' }}>
+            <option value="">All priorities</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
 
-          <div className="col-6 col-md-2">
-            <select className="form-select" value={status} onChange={(e)=>setStatus(e.target.value)}>
-              <option value="">All statuses</option>
-              <option value="Open">Open</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Resolved">Resolved</option>
-            </select>
-          </div>
+          <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)} style={{ maxWidth: '180px' }}>
+            <option value="">All statuses</option>
+            <option value="Open">Open</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+          </select>
 
-          <div className="col-12 col-md-3 d-flex justify-content-end gap-2">
+          <select className="form-select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} style={{ maxWidth: '180px' }}>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+
+          <div className="d-flex gap-2 ms-lg-auto">
             <button className="btn btn-outline-secondary" onClick={clearFilters}>Clear</button>
-            <a href="/create" className="btn btn-dark rounded-3 px-3 fw-medium ms-2">New Ticket</a>
           </div>
         </div>
       </div>

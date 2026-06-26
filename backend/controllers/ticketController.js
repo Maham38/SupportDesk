@@ -30,7 +30,7 @@ exports.createTicket = async (req, res) => {
 //get all tickets
 exports.getTickets = async (req, res) => {
   try {
-    const { search, priority, status } = req.query;
+    const { search, priority, status, sortOrder } = req.query;
 
     let filter = {};
 
@@ -45,7 +45,8 @@ exports.getTickets = async (req, res) => {
       ];
     }
 
-    const tickets = await Ticket.find(filter).sort({ createdAt: -1 });
+    const sortDirection = sortOrder === "oldest" ? 1 : -1;
+    const tickets = await Ticket.find(filter).sort({ createdAt: sortDirection });
 
     res.json(tickets);
   } catch (err) {
