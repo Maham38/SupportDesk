@@ -52,7 +52,7 @@ PORT=5000
 
 ---
 
-## 🚀 How to Run Backend
+##  How to Run Backend
 
 ```bash
 cd backend
@@ -68,7 +68,7 @@ http://localhost:5000
 
 ---
 
-## 💻 How to Run Frontend
+##  How to Run Frontend
 
 ```bash
 cd frontend
